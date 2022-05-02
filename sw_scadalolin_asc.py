@@ -26,7 +26,7 @@ def on_message(client, userdata, message):
 			valorDiccionario=dicSensor[payload[0]]
 		except:
 			print("MAC no registrada, guardando en base de datos")
-			valorDiccionario = bd.insert("sensores",["MAC"],[payload[0]])
+			valorDiccionario = bd.insert("sensores",["MAC"],["{}".format(payload[0])])
 		# valores= [payload[2], dicSensor[payload[0]], "DateTime('now','localtime')"]
 		valores= [payload[2], valorDiccionario, "DateTime('now','localtime')"]
 		bd.insert("Lecturas", campos, valores)
@@ -36,7 +36,7 @@ def on_message(client, userdata, message):
 
 def main():
 	# inicialmente se carga el diccionario con los sensores de la base de datos
-	bd = sqlite.conexion("sensores.db")
+	bd = sqlite.conexion("../sensores.db")
 	datos = bd.select("sensores")
 	dicSensor = {elemento['MAC']:int(elemento['Id']) for elemento in datos}
 
