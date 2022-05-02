@@ -28,6 +28,7 @@ def on_message(client, userdata, message):
 		except:
 			print("MAC no registrada, guardando en base de datos")
 			valorDiccionario = bd.insert("sensores",["MAC"],["'{}'".format(payload[0])])
+			dicSensor[payload[0]]=valorDiccionario
 		# valores= [payload[2], dicSensor[payload[0]], "DateTime('now','localtime')"]
 		valores= [payload[2], valorDiccionario, "DateTime('now','localtime')"]
 		bd.insert("Lecturas", campos, valores)
